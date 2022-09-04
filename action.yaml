@@ -33,7 +33,7 @@ runs:
         if('${{inputs.base}}' -ne ''){
           Write-Output ("BaseFile=$cwd\_autohotkey\Compiler\${{inputs.base}}.bin") | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
         }else{
-          Copy-Item -Path "$cwd\_autohotkey\Compiler\Unicode 32-bit.bin" -Destination "$cwd\_autohotkey\Compiler\AutoHotkeySC.bin"
+          Copy-Item -Path "$cwd\_autohotkey\Compiler\Unicode 64-bit.bin" -Destination "$cwd\_autohotkey\Compiler\AutoHotkeySC.bin"
         }
 
     - name: Run Ahk2Exe
