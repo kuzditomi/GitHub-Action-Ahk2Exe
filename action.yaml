@@ -4,7 +4,7 @@ author: nekocodeX
 
 inputs:
   in:
-    description: The path or files of the AutoHotKey script to compile. Example: scripts/*.ahk
+    description: The path or files of the AutoHotKey script to compile. Example scripts/*.ahk
     required: true
 
 runs:
