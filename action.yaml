@@ -30,7 +30,7 @@ runs:
         Get-ChildItem -Path $input.in | ForEach-Object `
         {
             $command = './ahk2exe.exe /silent verbose '
-            $command += '/in "${{$_.fullname}}" '
+            $command += '/in "' + $_.fullname + '"'
             
             $command += "| Write-Output"
             Invoke-Expression $command
