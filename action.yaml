@@ -27,7 +27,8 @@ runs:
     - name: Run Ahk2Exe
       shell: pwsh
       run: |
-        Get-ChildItem -Path $input.in | ForEach-Object `
+        echo "$cwd\$($input.in)"
+        Get-ChildItem -Path "$cwd\$($input.in)" | ForEach-Object `
         {
             $command = 'ahk2exe.exe /silent verbose '
             $command += '/in "' + $_.fullname + '"'
