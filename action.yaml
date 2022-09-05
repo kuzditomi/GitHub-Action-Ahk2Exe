@@ -4,20 +4,8 @@ author: nekocodeX
 
 inputs:
   in:
-    description: The path or file name of the AutoHotKey script to compile
+    description: The path or files of the AutoHotKey script to compile. Example: scripts/*.ahk
     required: true
-  out:
-    description: The path or file name of the compiled executable (by default, an executable of the same name will be created in the path of the AutoHotKey script specified by the "in" parameter)
-    required: false
-    default: ''
-  icon:
-    description: The icon of the executable file is specified
-    required: false
-    default: ''
-  base:
-    description: The name of the base file to be used for Ahk2Exe
-    required: false
-    default: ''
 
 runs:
   using: composite
@@ -39,21 +27,14 @@ runs:
     - name: Run Ahk2Exe
       shell: pwsh
       run: |
-        $command = 'ahk2exe.exe /silent verbose '
-        if('${{inputs.in}}' -ne ''){
-          $command += '/in "${{inputs.in}}" '
+        Get-ChildItem -Path $input.in | ForEach-Object `
+        {
+            $command = './ahk2exe.exe /silent verbose '
+            $command += '/in "${{$_.fullname}}" '
+            
+            $command += "| Write-Output"
+            Invoke-Expression $command
         }
-        if('${{inputs.out}}' -ne ''){
-          $command += '/out "${{inputs.out}}" '
-        }
-        if('${{inputs.icon}}' -ne ''){
-          $command += '/icon "${{inputs.icon}}" '
-        }
-        if('${{inputs.base}}' -ne ''){
-          $command += '/base "$Env:BaseFile" '
-        }
-        $command += "| Write-Output"
-        Invoke-Expression $command
         
 branding:
   color: green
